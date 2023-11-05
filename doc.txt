@@ -5,3 +5,5 @@ First we install pyeda for our project we can do this by either inputing
 pip3 install -r requirements.txt
 or
 pip3 install pyeda
+
+First we declare some global lists of our nodes in graph 'G' and vertices in 'G'   
