@@ -108,7 +108,14 @@ def bddRR2(orginalRR):
     # for i in range(5):
     #     composedSetRR1 = orginalRR.compose({varXList[i]})
 
-#def bddRR2star(orginalRR):
+def bddRR2star(rr2):
+    while True:
+        prevRR2 = rr2
+        rr2 = bddRR2(rr2)
+        if(rr2.equivalent(prevRR2)):
+            break
+    return rr2
+
 
 
 
@@ -174,7 +181,35 @@ class TestGraph(unittest.TestCase):
         edgeNotFound = findEdge(rr2,27,9)
         self.assertFalse(edgeNotFound)
 
-    #def testRR2star
+    def testRR2star(self):
+        graphG = initGraph()
+        rr1 = graphToBDD(graphG)
+        rr2 = bddRR2(rr1)
+        rr2star = bddRR2star(rr2)
+        edgeFound = findEdge(rr2star, 27,6)
+        self.assertTrue(edgeFound)
+
+    def testStatemnt(self):
+        graphG = initGraph()
+        primeList = [3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+        newPrimeList = [True if i in primeList else False for i in range(32)]
+        evenList = [True if i % 2 == 0 else False for i in range(32)]
+        varX = [bddvar(f"{'x'*2}" + str(i)) for i in range(5)]
+        varY = [bddvar(f"{'y'*2}" + str(i)) for i in range(5)]
+
+        rr1 = graphToBDD(graphG)
+        rr2 = bddRR2(rr1)
+        rr2star = bddRR2star(rr2)
+
+        primeBDD = createBDDString(newPrimeList, 'x')
+        evenBDD = createBDDString(evenList, 'y')
+        evenNodesSteps = evenBDD & rr2star
+
+        #Could not figure out how to procede from here got stuck on 
+        #How I can further figure out if there are an even number of
+        #Steps !!!!!!
+
+        
 
 
 

@@ -1,8 +1,10 @@
 Cpt_S 350 BDD Project for Fall of 2023
 Pyeda Documentaion: https://pyeda.readthedocs.io/en/latest/install.html
 
-First we install pyeda for our project we can do this by either inputing
+First we install pyeda for our project we can do this by either
 pip3 install -r requirements.txt
 or
 pip3 install pyeda
 
+To run our program we ensure we are in the same directory as our file and then
+python3 /BDDproj.py
