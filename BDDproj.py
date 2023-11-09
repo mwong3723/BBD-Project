@@ -10,6 +10,7 @@ from pyeda.boolalg.bdd import BinaryDecisionDiagram
 varX = [bddvar(f"{'x'*2}" + str(i)) for i in range(5)]
 varY = [bddvar(f"{'y'*2}" + str(i)) for i in range(5)]
 
+#Function used to initilze graph using a matrix
 def initGraph()->list[list[bool]]:
     graphG = [[False]*32 for _ in range(32)]
     for i in range(0,31):
@@ -18,6 +19,7 @@ def initGraph()->list[list[bool]]:
                 graphG[i][j] = True
     return graphG
 
+#Function to create an expression to later use for BDD
 def createExpr(nodeVal, var):
     #nodeBinary = bin(nodeVal) #doesn't work properly
 
@@ -38,6 +40,7 @@ def createExpr(nodeVal, var):
             BDDString.append(f"~{nodeName}")
     return expr("&".join(BDDString))
 
+#Creates a BDD expresion for our nodes
 def createBDDString(nodeList, var):
     bddExprList = []
     for i in range(len(nodeList)):
@@ -52,6 +55,7 @@ def createBDDString(nodeList, var):
     #print(bddString1)
     return expr2bdd(bddString1)
 
+#searches for a spefic node
 def findNode(bdd, nodeVal, var):
     nodeBinary = format(nodeVal, 'b').rjust(5, '0')
     varList = [bddvar(f"{var*2}" + str(i)) for i in range(5)]
@@ -67,13 +71,13 @@ def findNode(bdd, nodeVal, var):
     #print(resAns)
     return resAns.is_one()
 
+#Searches for a spefic edge
 def findEdge(bdd, nodeX, nodeY):
     nodeXBinary = format(nodeX, 'b').rjust(5, '0')
     nodeYBinary = format(nodeY, 'b').rjust(5, '0')
 
     varXList = [bddvar(f"{'x'*2}" + str(i)) for i in range(5)]
     varYList = [bddvar(f"{'y'*2}" + str(i)) for i in range(5)]
-
 
     targetEdge = {}
     for i in range(5):
